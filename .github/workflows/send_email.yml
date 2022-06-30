@@ -3,8 +3,8 @@ on: [push]
 
 jobs:
   wiz-cli-iac-scan:
-    name: 'Wiz-cli IaC Scan'
-    runs-on: github-hosted
+    name: 'send email github'
+    runs-on: ubuntu-latest
     env:
       SCAN_PATH: "." # Set the relative path in the repo to scan
       POLICY: "IaC-policy-zero-high" # Set the desired Wiz-cli policy to use
