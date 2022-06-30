@@ -20,7 +20,7 @@ jobs:
       uses: "finnp/create-file-action@master"
       env:
         FILE_NAME: "scan.json"
-        FILE_DATA: "'{ "records" : [ { "short_description" : "Default Security Groups With Unrestricted Traffic" , "priority" : "1 - Critical" , "impact" : "1" , "caller_id" : "cpsm" ,"assignment_group":"cspm_wiz","category":"Security","impact":"2 - Medium","subcategory":"IDS","u_business_service":"Security","u_issue":"Informational","urgency":"2 - Medium"} , { "short_description" : "CloudWatch Without Retention Period Specified" , "priority" : "1 - Critical" , "impact" : "1" , "caller_id" : "ravi","assignment_group":"cspm_wiz","category":"Security","impact":"2 - Medium","subcategory":"IDS","u_business_service":"Security","u_issue":"Informational","urgency":"2 - Medium" } ] }'"
+        FILE_DATA: "Default Security Groups With Unrestricted Traffic"
         
     - name: Send mail
       if: always()
