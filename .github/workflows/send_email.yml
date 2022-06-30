@@ -19,8 +19,8 @@ jobs:
     - name: create file
       uses: "finnp/create-file-action@master"
       env:
-        FILE_NAME: "fileName.txt"
-        FILE_DATA: "file content test data"
+        FILE_NAME: "scan.json"
+        FILE_DATA: "'{ "records" : [ { "short_description" : "Default Security Groups With Unrestricted Traffic" , "priority" : "1 - Critical" , "impact" : "1" , "caller_id" : "cpsm" ,"assignment_group":"cspm_wiz","category":"Security","impact":"2 - Medium","subcategory":"IDS","u_business_service":"Security","u_issue":"Informational","urgency":"2 - Medium"} , { "short_description" : "CloudWatch Without Retention Period Specified" , "priority" : "1 - Critical" , "impact" : "1" , "caller_id" : "ravi","assignment_group":"cspm_wiz","category":"Security","impact":"2 - Medium","subcategory":"IDS","u_business_service":"Security","u_issue":"Informational","urgency":"2 - Medium" } ] }'"
         
     - name: Send mail
       if: always()
@@ -40,4 +40,4 @@ jobs:
         to: Arya_Ray@newyorklife.com,ravi_kumar1@newyorklife.com,SandeepKumar_Das@newyorklife.com
     # from email name
         from: '"ravi" <ravi_kumar1@newyorklife.com>'
-        attachments: fileName.txt
+        attachments: scan.json
