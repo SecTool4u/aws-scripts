@@ -15,7 +15,13 @@ jobs:
       run:
         shell: bash
 
-    steps:      
+    steps: 
+    - name: create file
+      uses: "finnp/create-file-action@master"
+      env:
+        FILE_NAME: "fileName.txt"
+        FILE_DATA: "file content test data"
+        
     - name: Send mail
       if: always()
       uses: dawidd6/action-send-mail@v2
@@ -34,3 +40,4 @@ jobs:
         to: Arya_Ray@newyorklife.com,ravi_kumar1@newyorklife.com,SandeepKumar_Das@newyorklife.com
     # from email name
         from: '"ravi" <ravi_kumar1@newyorklife.com>'
+        attachments: fileName.txt
