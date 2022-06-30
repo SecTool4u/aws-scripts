@@ -33,4 +33,4 @@ jobs:
     # comma-separated string, send email to
         to: Arya_Ray@newyorklife.com,ravi_kumar1@newyorklife.com,sandeepkumar_das@newyorklife.com
     # from email name
-        from: ravi_kumar1@newyorklife.com
+        from: '"ravi" <ravi_kumar1@newyorklife.com>'
