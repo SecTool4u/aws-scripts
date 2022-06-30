@@ -1,5 +1,5 @@
 name: 'wiz-cli'
-on: [pull_request]
+on: [push]
 
 jobs:
   wiz-cli-iac-scan:
@@ -18,20 +18,20 @@ jobs:
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Check out repository
-      uses: actions/checkout@v2
+      #uses: actions/checkout@v2
 
     - name: Download Wiz-cli
-      run: curl -o /"$HOME"/wizcli https://wizcli.app.wiz.io/wizcli && chmod +x /"$HOME"/wizcli
+      #run: curl -o /"$HOME"/wizcli https://wizcli.app.wiz.io/wizcli && chmod +x /"$HOME"/wizcli
       
     - name: Authenticate to Wiz
-      run: /"$HOME"/wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
+      #run: /"$HOME"/wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
       env:
-        WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
-        WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+        WIZ_CLIENT_ID: test
+        WIZ_CLIENT_SECRET: test
 
     - name: Run wiz-cli IaC scan
       #run: /"$HOME"/wizcli iac scan --policy $POLICY --path $SCAN_PATH --name $GITHUB_REPOSITORY-${{github.event.repository.updated_at}}
-      run: /"$HOME"/wizcli iac scan --path $SCAN_PATH --name $GITHUB_REPOSITORY-${{github.event.repository.updated_at}}
+      #run: /"$HOME"/wizcli iac scan --path $SCAN_PATH --name $GITHUB_REPOSITORY-${{github.event.repository.updated_at}}
       
     - name: Send mail
       if: always()
