@@ -1,0 +1,53 @@
+name: 'wiz-cli'
+on: [pull_request]
+
+jobs:
+  wiz-cli-iac-scan:
+    name: 'Wiz-cli IaC Scan'
+    runs-on: self-hosted
+    env:
+      SCAN_PATH: "." # Set the relative path in the repo to scan
+      POLICY: "IaC-policy-zero-high" # Set the desired Wiz-cli policy to use
+      HOME: "home/ec2-user" # Set the runner home directory for wiz cli 
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Download Wiz-cli
+      run: curl -o /"$HOME"/wizcli https://wizcli.app.wiz.io/wizcli && chmod +x /"$HOME"/wizcli
+      
+    - name: Authenticate to Wiz
+      run: /"$HOME"/wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
+      env:
+        WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+        WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+
+    - name: Run wiz-cli IaC scan
+      #run: /"$HOME"/wizcli iac scan --policy $POLICY --path $SCAN_PATH --name $GITHUB_REPOSITORY-${{github.event.repository.updated_at}}
+      run: /"$HOME"/wizcli iac scan --path $SCAN_PATH --name $GITHUB_REPOSITORY-${{github.event.repository.updated_at}}
+      
+    - name: Send mail
+      if: always()
+      uses: dawidd6/action-send-mail@v2
+      with:
+        # mail server settings
+        server_address: email-smtp.us-east-1.amazonaws.com
+        server_port: 465
+    # user credentials
+        username: AKIAWAYEGMNGGP5ZUR6W
+        password: BABqdnCmPSJ47UrC70wUugeFmukCTR5fH/yJiZkHMGr9
+    # email subject
+        subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+    # email body as text
+        body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+    # comma-separated string, send email to
+        to: Arya_Ray@newyorklife.com,ravi_kumar1@newyorklife.com,sandeepkumar_das@newyorklife.com
+    # from email name
+        from: GitHub Notifications
